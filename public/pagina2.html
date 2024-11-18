@@ -7,7 +7,7 @@
     <style>
         /* Estilos generales */
         * {
-            box-sizing: border-box; /* Asegura que el padding y border no afecten al tamaño total */
+            box-sizing: border-box;
         }
 
         body {
@@ -15,37 +15,35 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-color: #000; /* Fondo negro */
-            overflow-x: hidden; /* Evitar desplazamiento horizontal */
+            background-color: #000;
+            overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
-        /* Video de fondo */
         .video-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Hace que el video cubra todo el fondo */
+            object-fit: cover;
             z-index: -1;
         }
 
-        /* Estilos de la caja del formulario */
         .container {
             position: relative;
             z-index: 1;
-            width: 90%; /* 90% del ancho de la pantalla */
-            max-width: 600px; /* Máximo de 600px para pantallas grandes */
+            width: 90%;
+            max-width: 600px;
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            overflow: hidden; /* Evitar desbordes */
         }
 
         h1 {
@@ -77,7 +75,7 @@
             font-size: 1rem;
             border: 2px solid #ed8125;
             border-radius: 5px;
-            width: 100%; /* Asegura que los campos llenen el ancho disponible */
+            width: 100%;
         }
 
         button {
@@ -96,7 +94,6 @@
             background-color: #74341b;
         }
 
-        /* Estilos del reloj */
         .countdown {
             margin-top: 30px;
         }
@@ -107,7 +104,6 @@
             font-weight: bold;
         }
 
-        /* Estilos para los campos adicionales (tarjeta y transferencia) */
         .payment-details {
             display: none;
             margin-top: 15px;
@@ -121,45 +117,56 @@
             width: 100%;
         }
 
+        .gracias-imagen {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .gracias-imagen img {
+            max-width: 100%;
+            height: auto;
+        }
+
         /* Estilos responsivos */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem; /* Ajustar tamaño del título para pantallas pequeñas */
+                font-size: 2rem;
             }
 
             .info {
-                font-size: 1rem; /* Ajustar tamaño del texto informativo */
+                font-size: 1rem;
             }
 
             #reloj {
-                font-size: 1.5rem; /* Hacer el reloj un poco más pequeño en pantallas pequeñas */
+                font-size: 1.5rem;
             }
 
             button {
-                font-size: 1.2rem; /* Hacer el texto del botón más grande */
+                font-size: 1.2rem;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                width: 95%; /* Hacer el formulario más estrecho en pantallas más pequeñas */
+                width: 95%;
             }
 
             h1 {
-                font-size: 1.8rem; /* Asegurar que el título no quede demasiado grande */
+                font-size: 1.8rem;
             }
 
             label {
-                font-size: 0.9rem; /* Reducir el tamaño de las etiquetas en pantallas pequeñas */
+                font-size: 0.9rem;
             }
 
             input, select {
-                font-size: 0.9rem; /* Reducir el tamaño de los inputs en pantallas pequeñas */
-                padding: 10px; /* Reducir el padding de los inputs */
+                font-size: 0.9rem;
+                padding: 10px;
             }
 
             button {
-                font-size: 1rem; /* Reducir el tamaño del botón */
+                font-size: 1rem;
             }
         }
     </style>
@@ -215,7 +222,6 @@
                 <input type="text" id="cbu" name="cbu" placeholder="CBU de tu banco">
             </div>
 
-            <!-- Campo oculto para el asunto del correo -->
             <input type="hidden" name="_subject" value="Nuevo Pedido">
 
             <button type="submit">Enviar Pedido</button>
@@ -226,13 +232,16 @@
             <h2>Tiempo restante para la entrega:</h2>
             <div id="reloj">30:00</div>
         </div>
+
+        <!-- Imagen de agradecimiento -->
+        <div class="gracias-imagen" id="gracias-imagen">
+            <img src="images/Gracias por tu compra.png" alt="Gracias por tu compra">
+        </div>
     </div>
 
     <script>
-        // Configuración de tiempo inicial (30 minutos = 1800 segundos)
         let tiempoRestante = 1800;
 
-        // Función para actualizar el reloj
         function actualizarReloj() {
             let minutos = Math.floor(tiempoRestante / 60);
             let segundos = tiempoRestante % 60;
@@ -246,20 +255,16 @@
             }
         }
 
-        // Iniciar cuenta regresiva
         setInterval(actualizarReloj, 1000);
 
-        // Mostrar los detalles de pago según el método seleccionado
         document.getElementById("metodo-pago").addEventListener("change", function() {
             const metodoPago = this.value;
             const tarjetaDetails = document.getElementById("tarjeta-details");
             const transferenciaDetails = document.getElementById("transferencia-details");
 
-            // Ocultar ambos detalles por defecto
             tarjetaDetails.style.display = 'none';
             transferenciaDetails.style.display = 'none';
 
-            // Mostrar los detalles correspondientes según el método de pago seleccionado
             if (metodoPago === 'tarjeta') {
                 tarjetaDetails.style.display = 'block';
             } else if (metodoPago === 'transferencia') {
@@ -267,9 +272,14 @@
             }
         });
 
-        // Enviar formulario y redirigir al método de pago
         document.getElementById("pedido-form").addEventListener("submit", function(e) {
-            e.preventDefault(); // Evitar envío inmediato del formulario
+            e.preventDefault();
+
+            // Mostrar imagen de "Gracias por tu compra"
+            document.getElementById("gracias-imagen").style.display = 'block';
+
+            // Ocultar el formulario después de enviar
+            document.getElementById("pedido-form").style.display = 'none';
 
             // Enviar datos a Formspree mediante AJAX
             const form = e.target;
@@ -281,19 +291,15 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // Redirigir a la página de pago después de un envío exitoso
-                    window.location.href = "https://www.ejemplo.com/pago";  // Sustituye con tu página de pago
-                } else {
-                    alert("Hubo un error en el envío del formulario.");
+                    // Aquí no hay alertas ni mensajes de error, solo mostramos la imagen.
+                    // No hacemos nada en caso de éxito, ya que ya mostramos la imagen.
                 }
             })
             .catch(error => {
-                alert("Gracias por tu compra, tu pedido llegará muy pronto.");
+                // Aquí también podemos manejar el error si lo necesitas, pero no mostramos alertas.
+                console.error("Hubo un error en el envío del formulario:", error);
             });
         });
     </script>
 </body>
 </html>
-
-
-

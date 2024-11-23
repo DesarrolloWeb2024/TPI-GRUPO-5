@@ -7,36 +7,44 @@ document.addEventListener('DOMContentLoaded', () => {
             // Manipular los datos en el frontend, por ejemplo, mostrarlos en la lista
             const productList = document.getElementById('product-list');
   
-            products.forEach(product => {
+            // Lista de las 4 imágenes proporcionadas
+            const images = [
+                "https://www.laespanolaaceites.com/wp-content/uploads/2019/06/pizza-con-chorizo-jamon-y-queso-1080x671.jpg",
+                "https://www.laespanolaaceites.com/wp-content/uploads/2019/05/pizza-al-ajo-con-tomates-frescos-1080x671.jpg",
+                "https://www.laespanolaaceites.com/wp-content/uploads/2019/06/empanadas-de-carne-de-cerdo-1080x671.jpg",
+                "https://media.istockphoto.com/id/1171946922/es/foto/empanadas.jpg?s=612x612&w=0&k=20&c=Lo5Ybk5FbjjvdJcE12fSandBIdZI45P0wEVSQRzvuT8="
+            ];
+  
+            // Mostrar los productos (en este caso las imágenes de forma estática)
+            images.forEach((imgUrl, index) => {
                 const listItem = document.createElement('div');
-                listItem.classList.add('col-lg-3','col-sm-6','my-3');
-                listItem.innerHTML = 
-                                    `
-                                        <div class='col-12 bg-white text-center h-100 product-item'>
-                                            <div class='row h-100'>
-                                                <div class='col-12 p-0 mb-3'>
-                                                    <a href="#">
-                                                        <img src="${product.urlImg}" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <a href="#" class="product-name">${product.name}</a>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <span class="product-price-old">
-                                                    $${product.oldPrice}
-                                                    </span>
-                                                    <br>
-                                                    <span class="product-price">
-                                                    $${product.price}
-                                                    </span>
-                                                </div>
-                                                <div class="col-12 mb-3 align-self-end">
-                                                    <button class="btn btn-outline-dark add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${product.urlImg}"><i class="fas fa-cart-plus me-2"></i>Agregar al carrito</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `;
+                listItem.classList.add('col-lg-3', 'col-sm-6', 'my-3');
+  
+                listItem.innerHTML = `
+                    <div class='col-12 bg-white text-center h-100 product-item'>
+                        <div class='row h-100'>
+                            <div class='col-12 p-0 mb-3'>
+                                <a href="#">
+                                    <!-- Usando la URL de la imagen -->
+                                    <img src="${imgUrl}" class="img-fluid" alt="Imagen ${index + 1}">
+                                </a>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <a href="#" class="product-name">Producto ${index + 1}</a>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <span class="product-price-old">$100</span>
+                                <br>
+                                <span class="product-price">$80</span>
+                            </div>
+                            <div class="col-12 mb-3 align-self-end">
+                                <button class="btn btn-outline-dark add-to-cart" data-name="Producto ${index + 1}" data-price="80" data-image="${imgUrl}">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
                 productList.appendChild(listItem);
             });
         })
@@ -44,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching products:', error);
         });
     } catch (e) {
-        console.log('Error en el try-catch')
-        console.log(e)
+        console.log('Error en el try-catch');
+        console.log(e);
     }
 
     // Manejar la adición de productos al carrito
@@ -81,3 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
 function removeItem(button) {
     button.closest(".cart-item").remove();
 }
+

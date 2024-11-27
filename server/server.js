@@ -9,40 +9,42 @@ app.use(bodyParser.json());
 
 
 app.get('/api/products', (req, res) => {
-  const products = [
-    { 
-      id: 1, 
-      name: 'pizza musarela', 
-      oldPrice: 37500, 
-      price: 35000, 
-      urlImg: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSmYckEMeFKNyPfp2TJu1Fup4HIBjibtiCqO3I6nbhWev7LIyxevl52_-aZwkaoJmuOVxzl0GTcx9nqq5G4T3ArSy99H_T5&usqp=CAE'
+  // Base de datos simulada
+  const productsDB = [
+    {
+      id: 1,
+      name: 'Pizza de peperoni',
+      oldPrice: 13000,
+      price: 10000,
+      urlImg: 'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/pizza-con-chorizo-jamon-y-queso-1080x671.jpg'
     },
     {
-      id: 2, 
-      name: 'Campera Keyboard programador',  
-      oldPrice: 11500, 
-      price: 11200, 
-      urlImg: 'https://purodiseno.lat/wp-content/uploads/2023/04/CAMPERA-TECLADO-2-821x1024.jpg' 
+      id: 2,
+      name: 'Pizza especial tomate y rúcula',
+      oldPrice: 16500,
+      price: 16100,
+      urlImg: 'https://www.laespanolaaceites.com/wp-content/uploads/2019/05/pizza-al-ajo-con-tomates-frescos-1080x671.jpg'
     },
-    { 
-      id: 3, 
-      name: 'Disco-solido interno kingston sata-960g',  
-      oldPrice: 18500, 
-      price: 18000, 
-      urlImg: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQwqHX1fVP2DUn6mEw05ukydZ6KOgkf0w3N3ZEHHJnDUW7WtxSEzdOZ73YxCn-FBC5kYxGeF4wy9zakpXVDOXbjQouNAmyH1LTbzkyuK2t0u9We1eAqfkFFDw&usqp=CAE' 
+    {
+      id: 3,
+      name: '12 Empanadas',
+      oldPrice: 14500,
+      price: 9000,
+      urlImg: 'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/empanadas-de-carne-de-cerdo-1080x671.jpg'
     },
-    { 
-      id: 3, 
-      name: 'Taza Código De Programacion',  
-      oldPrice: 3500, 
-      price: 2200, 
-      urlImg: 'https://http2.mlstatic.com/D_NQ_NP_786656-MLA46832914211_072021-O.webp' 
+    {
+      id: 4,
+      name: '6 Empanadas Horno',
+      oldPrice: 5000,
+      price: 4000,
+      urlImg: 'https://media.istockphoto.com/id/1171946922/es/foto/empanadas.jpg?s=612x612&w=0&k=20&c=Lo5Ybk5FbjjvdJcE12fSandBIdZI45P0wEVSQRzvuT8='
     },
-    
-    
+
+
   ];
 
-  res.json(products);
+
+  res.json(productsDB);
 });
 
 app.listen(port, () => {
